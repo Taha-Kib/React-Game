@@ -1,27 +1,19 @@
-import React, {useState } from 'react'
+import React, { useState } from "react";
+import Button from "./Button";
+import Timer from "./Timer";
 
 function Display() {
-// const [targets, setTargets] = useState();
- const [score, setScore] = useState(0);
-
-const handleClick = event =>{
-    event.preventDefault()
-    const i =Math.abs(Math.floor(Math.random()*window.innerWidth-50))
-    const j = Math.abs(Math.floor(Math.random()*window.innerHeight-50));
-    event.currentTarget.style.left = i+"px"
-    event.currentTarget.style.top = j+"px"
-    setScore ((prevScore)=>prevScore+1)
-}
-
-
+  let buttons = ["Button 1", "Button 2", "Button 3"];
+  const [score, setScore] = useState(0);
   return (
     <div>
-        <p className='Score'>Score: {score}</p>
-        <button key = "1" style={{left: Math.abs(Math.floor(Math.random()*window.innerWidth-50))+"px", top: Math.abs(Math.floor(Math.random()*window.innerHeight-50) +"px")}} onClick={handleClick} className = "RoundBtn">Start Button</button>
-        <button key = "2" style={{left: Math.abs(Math.floor(Math.random()*window.innerWidth-50))+"px", top: Math.abs(Math.floor(Math.random()*window.innerHeight-50) +"px")}} onClick={handleClick} className = "RoundBtn">Start Button</button>
-        <button key = "3" style={{left: Math.abs(Math.floor(Math.random()*window.innerWidth-50))+"px", top: Math.abs(Math.floor(Math.random()*window.innerHeight-50) +"px")}} onClick={handleClick} className = "RoundBtn">Start Button</button>
+      <Timer/>
+      <p className="Score">Score: {score}</p>
+      {buttons.map((button, index) => {
+        return <Button stateChanger = {setScore} key={index} />;
+      })}
     </div>
-  )
+  );
 }
 
-export default Display
+export default Display;
