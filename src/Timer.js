@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useContext } from "react";
+import { GameContext, GAME_STATES } from "./GameContext";
 
 function Timer() {
-    const [counter, setCounter] = useState(60)
+  const { setGameStart, score, setScore, remainingTime, setRemainingTime } =
+    useContext(GameContext);
 
-    useEffect(()=>{
-        if(counter > 0){
-            setTimeout(()=>setCounter(prevCounter => prevCounter-1),1000)
-        }
-    },[counter])
+  function restartGame() {
+    setRemainingTime(60);
+    let currMaxScore = JSON.parse(localStorage.getItem("maxScore"));
+    if (score > JSON.parse(currMaxScore)) {
+      localStorage.setItem("maxScore", JSON.stringify(score));
+    }
+    setGameStart(GAME_STATES.FINISHED);
+    setScore(0);
+  }
 
-  return (
-    <div>Timer: {counter}</div>
-  )
+  useEffect(() => {
+    if (remainingTime > 0) {
+      setTimeout(
+        () => setRemainingTime((prevCounter) => prevCounter - 1),
+        1000
+      );
+    } else {
+      restartGame();
+    }
+  }, [setRemainingTime, remainingTime]);
+
+  return <div className="Timer">{remainingTime}</div>;
 }
 
-export default Timer
+export default Timer;

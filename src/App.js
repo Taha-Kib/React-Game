@@ -1,11 +1,12 @@
-import './App.css';
-import Display from './Display';
+import "./App.css";
+import { GameContextProvider } from "./GameContext";
+import Display from "./Display";
 
 function App() {
   return (
-   <div>
-      <Display/>
-   </div>
+    <GameContextProvider>
+      <Display />
+    </GameContextProvider>
   );
 }
 

@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { GameContext } from "./GameContext";
 
 
 function Button({stateChanger}) {
+
     const handleClick = (event) => {
     event.preventDefault();
-    const i = Math.abs(Math.floor(Math.random() * window.innerWidth - 300));
-    const j = Math.abs(Math.floor(Math.random() * window.innerHeight - 300));
+    let i = Math.ceil(Math.abs(Math.floor(Math.random() * window.innerWidth - 300))/150)*150;
+    let j = Math.ceil(Math.abs(Math.floor(Math.random() * window.innerHeight - 300))/150)*150;
+    if(j<=150){
+      j = j+150
+    }
     event.currentTarget.style.left = i + "px";
     event.currentTarget.style.top = j + "px";
-    stateChanger(prevScore => prevScore+1)
+    console.log(i,j)
+    stateChanger(prevScore => prevScore+10)
   };
 
 
@@ -17,9 +23,9 @@ function Button({stateChanger}) {
       <button
         style={{
           left:
-            Math.abs(Math.floor(Math.random() * window.innerWidth - 300)) + "px",
+            Math.ceil(Math.abs(Math.floor(Math.random() * window.innerWidth - 300))/150)*150 + "px",
           top: Math.abs(
-            Math.floor(Math.random() * window.innerHeight - 300) + "px"
+            Math.ceil(Math.abs(Math.floor(Math.random() * window.innerHeight - 300))/150)*150 + "px"
           ),
         }}
         className="RoundBtn"
